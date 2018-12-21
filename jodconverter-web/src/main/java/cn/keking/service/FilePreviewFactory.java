@@ -22,9 +22,9 @@ public class FilePreviewFactory {
     @Autowired
     ApplicationContext context;
 
-    public FilePreview get(String url) {
+    public FilePreview get(String url,String fileType) {
         Map<String, FilePreview> filePreviewMap = context.getBeansOfType(FilePreview.class);
-        FileAttribute fileAttribute = fileUtils.getFileAttribute(url);
+        FileAttribute fileAttribute = fileUtils.getFileAttribute(url,fileType);
         return filePreviewMap.get(fileAttribute.getType().getInstanceName());
     }
 }

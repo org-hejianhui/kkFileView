@@ -57,7 +57,7 @@ public class ZipReader {
      * </p>
      * @param filePath
      */
-    public String readZipFile(String filePath,String fileKey) {
+    public String readZipFile(String filePath,String fileKey,String fileType) {
         String archiveSeparator = "/";
         Map<String, FileNode> appender = Maps.newHashMap();
         List imgUrls=Lists.newArrayList();
@@ -83,7 +83,7 @@ public class ZipReader {
                 }
                 String parentName = getLast2FileName(fullName, archiveSeparator, archiveFileName);
                 parentName = (level-1) + "_" + parentName;
-                FileType type=fileUtils.typeFromUrl(childName);
+                FileType type=fileUtils.typeFromUrl(childName,fileType);
                 if (type.equals(FileType.picture)){//添加图片文件到图片列表
                     imgUrls.add(baseUrl+childName);
                 }
@@ -116,7 +116,7 @@ public class ZipReader {
         return Collections.enumeration(sortedEntries);
     }
 
-    public String unRar(String filePath,String fileKey){
+    public String unRar(String filePath,String fileKey,String fileType){
         Map<String, FileNode> appender = Maps.newHashMap();
         List imgUrls=Lists.newArrayList();
         String baseUrl= (String) RequestContextHolder.currentRequestAttributes().getAttribute("baseUrl",0);
@@ -142,7 +142,7 @@ public class ZipReader {
                     headersToBeExtracted.add(Collections.singletonMap(childName, header));
                 }
                 String parentName = getLast2FileName(fullName, "\\", archiveFileName);
-                FileType type=fileUtils.typeFromUrl(childName);
+                FileType type=fileUtils.typeFromUrl(childName,fileType);
                 if (type.equals(FileType.picture)){//添加图片文件到图片列表
                     imgUrls.add(baseUrl+childName);
                 }

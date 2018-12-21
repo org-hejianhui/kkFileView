@@ -10,6 +10,7 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author yudian-it
@@ -46,10 +45,10 @@ public class OnlinePreviewController {
      * @return
      */
     @RequestMapping(value = "onlinePreview", method = RequestMethod.GET)
-    public String onlinePreview(String url, Model model, HttpServletRequest req) {
+    public String onlinePreview(String url,String fileType, Model model, HttpServletRequest req) {
         req.setAttribute("fileKey", req.getParameter("fileKey"));
-        FilePreview filePreview = previewFactory.get(url);
-        return filePreview.filePreviewHandle(url, model);
+        FilePreview filePreview = previewFactory.get(url,fileType);
+        return filePreview.filePreviewHandle(url,fileType, model);
     }
 
     /**
@@ -66,7 +65,7 @@ public class OnlinePreviewController {
         String decodedUrl = URLDecoder.decode(urls, "utf-8");
         String decodedCurrentUrl = URLDecoder.decode(currentUrl, "utf-8");
         // 抽取文件并返回文件列表
-        String[] imgs = decodedUrl.split("\\|");
+        String[] imgs = decodedUrl.split("\\,");
         List imgurls = Arrays.asList(imgs);
         model.addAttribute("imgurls", imgurls);
         model.addAttribute("currentUrl",decodedCurrentUrl);
@@ -125,8 +124,11 @@ public class OnlinePreviewController {
      */
     @GetMapping("/addTask")
     @ResponseBody
-    public String addQueueTask(String url) {
+    public String addQueueTask(String url,String fileType) {
         final RBlockingQueue<String> queue = redissonClient.getBlockingQueue(FileConverQueueTask.queueTaskName);
+        // 外部传入文件后缀
+        if(!StringUtils.isEmpty(fileType))
+            url += "|" + fileType;
         queue.addAsync(url);
         return "success";
     }

@@ -59,14 +59,20 @@ public class FileConverQueueTask {
             while (true) {
                 try {
                     final RBlockingQueue<String> queue = redissonClient.getBlockingQueue(FileConverQueueTask.queueTaskName);
-                    String url = queue.take();
-                    if(url!=null){
-                        FileAttribute fileAttribute=fileUtils.getFileAttribute(url);
+                    String taskUrl = queue.take();
+                    if(taskUrl!=null){
+                        String[] array = taskUrl.split("|");
+                        String url = array[0];
+                        String type = "";
+                        if(array.length > 1)
+                            type = array[1];
+
+                        FileAttribute fileAttribute=fileUtils.getFileAttribute(url,type);
                         logger.info("正在处理转换任务，文件名称【{}】",fileAttribute.getName());
                         FileType fileType=fileAttribute.getType();
                         if(fileType.equals(FileType.compress) || fileType.equals(FileType.office)){
-                            FilePreview filePreview=previewFactory.get(url);
-                            filePreview.filePreviewHandle(url,new ExtendedModelMap());
+                            FilePreview filePreview=previewFactory.get(url,type);
+                            filePreview.filePreviewHandle(url,type,new ExtendedModelMap());
                         }
                     }
                 } catch (Exception e) {

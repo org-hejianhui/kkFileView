@@ -18,7 +18,7 @@ public class MediaFilePreviewImpl implements FilePreview {
     FileUtils fileUtils;
 
     @Override
-    public String filePreviewHandle(String url, Model model) {
+    public String filePreviewHandle(String url,String fileType, Model model) {
         model.addAttribute("mediaUrl", url);
         return "media";
     }

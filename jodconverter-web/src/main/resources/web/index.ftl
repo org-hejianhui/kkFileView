@@ -13,6 +13,7 @@
 
 <body>
 <h1>文件预览项目接入和测试界面</h1>
+
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -26,7 +27,7 @@
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
                 <div>
-                    如果你的项目需要接入文件预览项目，达到对docx、excel、ppt、jpg等文件的预览效果，那么通过在你的项目中加入下面的代码就可以
+                    项目需要接入文件预览项目，达到对docx、excel、ppt、jpg等文件的预览效果，那么通过在项目中加入下面的代码就可以
                     成功实现：
                     <pre style="background-color: #2f332a;color: #cccccc">
                         $scope.openWin = function (fileUrl) {
@@ -50,6 +51,7 @@
             </div>
         </div>
     </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -74,53 +76,31 @@
             </div>
         </div>
     </div>
-    <div class="panel">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion"
-                   href="#collapseThree">
-                    更新记录
-                </a>
-            </h4>
-        </div>
-        <div id="collapseThree" class="panel-collapse collapse in">
-            <div class="panel-body">
-                <div>
-                    2018年01月15日 ：<br>
-                    1.首页新增社会化评论框<br><br>
 
-                    2018年01月12日 ：<br>
-                        1.新增多图片同时预览<br>
-                        2.支持压缩包内图片轮番预览<br><br>
-
-                    2018年01月02日 ：<br>
-                        1.修复txt等文本编码问题导致预览乱码<br>
-                        2.修复项目模块依赖引入不到的问题<br>
-                        3.新增spring boot profile，支持多环境配置<br>
-                        4.引入pdf.js预览doc等文件，支持doc标题生成pdf预览菜单，支持手机端预览<br><br>
-
-                    2017年12月12日：<br>
-                        1.项目osc开源:<a href="https://gitee.com/kekingcn/file-online-preview" target="_blank">https://gitee.com/kekingcn/file-online-preview</a><br>
-                        2.项目github开源:<a href="https://github.com/kekingcn/kkFileView" target="_blank">https://github.com/kekingcn/kkFileView</a>
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseTree">
+                        项目特色
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ol>
+                        <li>支持office，pdf等办公文档</li>
+                        <li>支持txt等所有纯文本</li>
+                        <li>支持zip,rar,jar,tar,gzip等压缩包</li>
+                        <li>支持jpg，jpeg，png，gif等图片预览（翻转，缩放，镜像）</li>
+                        <li>使用spring boot开发，预览服务搭建部署非常简便</li>
+                        <li>提供rest接口服务，应用接入简单方便</li>
+                        <li>抽象预览服务接口，方便二次开发，非常方便添加其他类型文件预览支持</li>
+                        <li>支持大文件入队提前处理，采用redis队列，支持接口和异构系统入队两种方式</li>
+                    </ol>
                 </div>
             </div>
         </div>
-        <div class="panel-body">
-            <div style="width: 80%">
-                <!-- 多说评论框 start -->
-                <div id="SOHUCS" sid="kkfileView"></div>
-                <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
-                <script type="text/javascript">
-                    window.changyan.api.config({
-                        appid: 'cytx6wU4N',
-                        conf: 'prod_c53858654f21b8f813c14b7681f5405a'
-                    });
-                </script>
-                <!-- 多说评论框 end -->
-            </div>
-        </div>
-
-    </div>
 </div>
 
 <div class="loading_container">

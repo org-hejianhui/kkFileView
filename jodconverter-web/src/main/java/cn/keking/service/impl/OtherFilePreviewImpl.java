@@ -17,8 +17,8 @@ public class OtherFilePreviewImpl implements FilePreview {
     FileUtils fileUtils;
 
     @Override
-    public String filePreviewHandle(String url, Model model) {
-        FileAttribute fileAttribute=fileUtils.getFileAttribute(url);
+    public String filePreviewHandle(String url,String fileType, Model model) {
+        FileAttribute fileAttribute=fileUtils.getFileAttribute(url,fileType);
 
         model.addAttribute("fileType",fileAttribute.getSuffix());
         model.addAttribute("msg", "系统还不支持该格式文件的在线预览，" +

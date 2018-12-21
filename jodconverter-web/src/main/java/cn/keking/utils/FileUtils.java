@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -67,10 +68,13 @@ public class FileUtils {
      * @param url
      * @return
      */
-    public FileType typeFromUrl(String url) {
+    public FileType typeFromUrl(String url,String fileType) {
         String nonPramStr = url.substring(0, url.indexOf("?") != -1 ? url.indexOf("?") : url.length());
         String fileName = nonPramStr.substring(nonPramStr.lastIndexOf("/") + 1);
-        String fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
+        // 外部没有传后缀
+        if(StringUtils.isEmpty(fileType))
+            fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
+
         if (listPictureTypes().contains(fileType.toLowerCase())) {
           return FileType.picture;
         }
@@ -258,14 +262,16 @@ public class FileUtils {
      * @param url
      * @return
      */
-    private String suffixFromUrl(String url) {
+    private String suffixFromUrl(String url,String fileType) {
         String nonPramStr = url.substring(0, url.indexOf("?") != -1 ? url.indexOf("?") : url.length());
         String fileName = nonPramStr.substring(nonPramStr.lastIndexOf("/") + 1);
-        String fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
+        // 外部没有传后缀
+        if(StringUtils.isEmpty(fileType))
+             fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
         return fileType;
     }
 
-    public FileAttribute getFileAttribute(String url) {
+    public FileAttribute getFileAttribute(String url,String fileType) {
         String decodedUrl=null;
         try {
             decodedUrl = URLDecoder.decode(url, "utf-8");
@@ -273,8 +279,8 @@ public class FileUtils {
             log.debug("url解码失败");
         }
         // 路径转码
-        FileType type = typeFromUrl(url);
-        String suffix = suffixFromUrl(url);
+        FileType type = typeFromUrl(url,fileType);
+        String suffix = suffixFromUrl(url,fileType);
         // 抽取文件并返回文件列表
         String fileName = getFileNameFromURL(decodedUrl);
         return new FileAttribute(type,suffix,fileName,url,decodedUrl);

@@ -28,8 +28,8 @@ public class CompressFilePreviewImpl implements FilePreview{
     ZipReader zipReader;
 
     @Override
-    public String filePreviewHandle(String url, Model model) {
-        FileAttribute fileAttribute=fileUtils.getFileAttribute(url);
+    public String filePreviewHandle(String url,String fileType, Model model) {
+        FileAttribute fileAttribute=fileUtils.getFileAttribute(url,fileType);
         String fileName=fileAttribute.getName();
         String decodedUrl=fileAttribute.getDecodedUrl();
         String suffix=fileAttribute.getSuffix();
@@ -43,9 +43,9 @@ public class CompressFilePreviewImpl implements FilePreview{
             }
             String filePath = response.getContent();
             if ("zip".equalsIgnoreCase(suffix) || "jar".equalsIgnoreCase(suffix) || "gzip".equalsIgnoreCase(suffix)) {
-                fileTree = zipReader.readZipFile(filePath, fileName);
+                fileTree = zipReader.readZipFile(filePath, fileName,fileType);
             } else if ("rar".equalsIgnoreCase(suffix)) {
-                fileTree = zipReader.unRar(filePath, fileName);
+                fileTree = zipReader.unRar(filePath, fileName,fileType);
             }
             fileUtils.addConvertedFile(fileName, fileTree);
         } else {

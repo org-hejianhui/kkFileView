@@ -35,13 +35,15 @@ public class OfficeFilePreviewImpl implements FilePreview {
     private OfficeToPdf officeToPdf;
 
     @Override
-    public String filePreviewHandle(String url, Model model) {
-        FileAttribute fileAttribute=fileUtils.getFileAttribute(url);
+    public String filePreviewHandle(String url,String fileType, Model model) {
+        FileAttribute fileAttribute=fileUtils.getFileAttribute(url,fileType);
         String suffix=fileAttribute.getSuffix();
         String fileName=fileAttribute.getName();
         String decodedUrl=fileAttribute.getDecodedUrl();
         boolean isHtml = suffix.equalsIgnoreCase("xls") || suffix.equalsIgnoreCase("xlsx");
         String pdfName = fileName.substring(0, fileName.lastIndexOf(".") + 1) + (isHtml ? "html" : "pdf");
+        if(!StringUtils.isEmpty(fileType))
+            pdfName = fileName + "." + pdfName;
         // 判断之前是否已转换过，如果转换过，直接返回，否则执行转换
         if (!fileUtils.listConvertedFiles().containsKey(pdfName)) {
             String filePath = fileDir + fileName;
