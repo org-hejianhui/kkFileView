@@ -1,18 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_FILE" value="@logging.path@/app.log"></property>
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <jmxConfigurator/>
-    <logger name="org.springframework.web" level="info"/>
-    <appender name="stash" class="net.logstash.logback.appender.LogstashSocketAppender">
-        <port>10800</port>
-        <host>192.168.1.109</host>
-        <includeCallerData>true</includeCallerData>
-        <customFields>{"app_name":"@appName@"}</customFields>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.springboot.sample" level="TRACE" />
+    <property name="log.path" value="/logs/file-preview.log" />
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
     </appender>
-    <root level="INFO">
-        <!--<appender-ref ref="dailyRollingFile"/>
-        <appender-ref ref="consoleRolling"/>-->
-        <appender-ref ref="stash"/>
-    </root>
+
+    <!-- 生产环境 -->
+    <springProfile name="prod">
+
+        <!-- 注意这里一定要放到springProfile里, 否则在你本机执行的时候还是会去找相应的文件 -->
+        <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${log.path}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!--日志文件输出的文件名-->
+                <FileNamePattern>${log.path}_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+                <!--日志文件保留天数-->
+                <maxHistory>30</maxHistory>
+                <!--<totalSizeCap>1kb</totalSizeCap>-->
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+            </rollingPolicy>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            </encoder>
+            <!--日志文件最大的大小-->
+            <!--<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <MaxFileSize>1kb</MaxFileSize>
+            </triggeringPolicy>-->
+        </appender>
+
+        <appender name="asyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">
+            <discardingThreshold>0</discardingThreshold>
+            <queueSize>500</queueSize>
+            <appender-ref ref="FILE" />
+        </appender>
+    </springProfile>
+
+    <!-- 开发、测试环境 -->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="consoleAppender" />
+        </root>
+    </springProfile>
+
+    <springProfile name="junit">
+        <root level="INFO">
+            <appender-ref ref="consoleAppender" />
+            <appender-ref ref="asyncFileAppender" />
+        </root>
+    </springProfile>
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="asyncFileAppender" />
+        </root>
+    </springProfile>
+    <springProfile name="pro">
+        <root level="INFO">
+            <appender-ref ref="asyncFileAppender" />
+        </root>
+    </springProfile>
+
 </configuration>
