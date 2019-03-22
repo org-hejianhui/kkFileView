@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <logger name="org.springframework.web" level="INFO"/>
     <logger name="org.springboot.sample" level="TRACE" />
-    <property name="log.path" value="/logs/file-preview.log" />
+    <property name="log.path" value="/appcity/logs/file-preview.log" />
 
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">

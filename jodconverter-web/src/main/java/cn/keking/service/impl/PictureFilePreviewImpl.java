@@ -11,7 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import java.util.List;
 
 /**
- * Created by kl on 2018/1/17.
+ * Created by hejianhui on 2018/12/17.
  * Content :图片文件处理
  */
 @Service

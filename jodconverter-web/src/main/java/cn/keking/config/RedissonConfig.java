@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ClassUtils;
 
 /**
- * Created by kl on 2017/09/26.
+ * Created by hejianhui on 2018/09/26.
  * redisson 客户端配置
  */
 @ConfigurationProperties(prefix = "spring.redisson")

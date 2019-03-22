@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 
 /**
- * @author yudian-it
+ * @author hejianhui
  */
 @Component
 public class OfficeToPdf {

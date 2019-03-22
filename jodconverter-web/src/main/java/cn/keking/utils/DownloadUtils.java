@@ -8,7 +8,7 @@ import java.net.*;
 import java.util.UUID;
 
 /**
- * @author yudian-it
+ * @author hejianhui
  */
 @Component
 public class DownloadUtils {

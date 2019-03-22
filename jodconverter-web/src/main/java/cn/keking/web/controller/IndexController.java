@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *  页面跳转
- * @author yudian-it
- * @date 2017/12/27
+ * @author hejianhui
+ * @date 2018/12/27
  */
 @Controller
 public class IndexController {

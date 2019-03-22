@@ -12,8 +12,8 @@ import java.util.Map;
 
 /**
  * 重写了DefaultDocumentFormatRegistry类，因为要添加自定义行为，比如字符编码。。。
- * @author yudian-it
- * @date 2017/12/5
+ * @author hejianhui
+ * @date 2018/12/5
  */
 public class ControlDocumentFormatRegistry extends SimpleDocumentFormatRegistry {
 

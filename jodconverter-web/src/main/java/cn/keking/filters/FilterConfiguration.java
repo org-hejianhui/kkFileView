@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  *
- * @author yudian-it
- * @date 2017/11/30
+ * @author hejianhui
+ * @date 2018/11/30
  */
 @Configuration
 public class FilterConfiguration {

@@ -23,8 +23,8 @@ import java.util.UUID;
 
 /**
  *
- * @author yudian-it
- * @date 2017/12/1
+ * @author hejianhui
+ * @date 2018/12/1
  */
 @RestController
 public class FileController {

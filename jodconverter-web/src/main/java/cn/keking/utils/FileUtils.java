@@ -21,8 +21,8 @@ import java.util.Map;
 
 /**
  *
- * @author yudian-it
- * @date 2017/11/13
+ * @author hejianhui
+ * @date 2018/11/13
  */
 @Component
 public class FileUtils {
@@ -98,7 +98,7 @@ public class FileUtils {
     /**
      * 从url中剥离出文件名
      * @param url
-     *      格式如：http://keking.ufile.ucloud.com.cn/20171113164107_月度绩效表模板(新).xls?UCloudPublicKey=ucloudtangshd@weifenf.com14355492830001993909323&Expires=&Signature=I D1NOFtAJSPT16E6imv6JWuq0k=
+     *      格式如：http://keking.ufile.ucloud.com.cn/20181113164107_月度绩效表模板(新).xls?UCloudPublicKey=ucloudtangshd@weifenf.com14355492830001993909323&Expires=&Signature=I D1NOFtAJSPT16E6imv6JWuq0k=
      * @return
      */
     public String getFileNameFromURL(String url) {
@@ -122,7 +122,7 @@ public class FileUtils {
     /**
      * 从路径中获取
      * @param path
-     *      类似这种：C:\Users\yudian-it\Downloads
+     *      类似这种：C:\Users\hejianhui\Downloads
      * @return
      */
     public String getFileNameFromPath(String path) {

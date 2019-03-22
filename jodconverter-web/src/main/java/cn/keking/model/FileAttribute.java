@@ -1,7 +1,7 @@
 package cn.keking.model;
 
 /**
- * Created by kl on 2018/1/17.
+ * Created by hejianhui on 2018/12/17.
  * Content :
  */
 public class FileAttribute {

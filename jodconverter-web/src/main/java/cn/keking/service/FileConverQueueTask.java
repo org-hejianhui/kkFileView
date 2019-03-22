@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by kl on 2018/1/19.
+ * Created by hejianhui on 2018/12/19.
  * Content :消费队列中的转换文件
  */
 @Service

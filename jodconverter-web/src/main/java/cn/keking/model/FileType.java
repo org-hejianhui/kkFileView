@@ -1,7 +1,7 @@
 package cn.keking.model;
 
 /**
- * Created by kl on 2018/1/17.
+ * Created by hejianhui on 2018/12/17.
  * Content :文件类型，文本，office，压缩包等等
  */
 public enum FileType {

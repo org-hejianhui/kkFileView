@@ -12,8 +12,8 @@ import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 /**
  * 文本文件编码探测工具类
  *
- * @author HWliao
- * @date 2017-12-24
+ * @author hejianhui
+ * @date 2018-12-24
  */
 public class FileCharsetDetector {
 
